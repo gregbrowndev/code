@@ -11,11 +11,12 @@ class OutOfStock(Exception):
 class Product:
     ''' dummy implementation, fixme'''
 
-    def __init__(self, sku: str, batches: Optional[List[Batch]] = None):
+    def __init__(self, sku: str, batches: Optional[List[Batch]] = None, version_number: int = 0):
         if batches is None:
             batches = []
         self.sku = sku
         self.batches = batches
+        self.version_number = version_number
 
     def allocate(self, line):
         try:
@@ -23,6 +24,7 @@ class Product:
                 b for b in sorted(self.batches) if b.can_allocate(line)
             )
             batch.allocate(line)
+            self.version_number += 1
             return batch.reference
         except StopIteration:
             raise OutOfStock(f'Out of stock for sku {line.sku}')

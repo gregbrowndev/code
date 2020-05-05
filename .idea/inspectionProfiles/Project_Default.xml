@@ -4,7 +4,7 @@
     <inspection_tool class="PyPackageRequirementsInspection" enabled="true" level="WARNING" enabled_by_default="true">
       <option name="ignoredPackages">
         <value>
-          <list size="76">
+          <list size="81">
             <item index="0" class="java.lang.String" itemvalue="psycopg2" />
             <item index="1" class="java.lang.String" itemvalue="coverage" />
             <item index="2" class="java.lang.String" itemvalue="botocore" />
@@ -81,6 +81,11 @@
             <item index="73" class="java.lang.String" itemvalue="mappers" />
             <item index="74" class="java.lang.String" itemvalue="six" />
             <item index="75" class="java.lang.String" itemvalue="python_dateutil" />
+            <item index="76" class="java.lang.String" itemvalue="pytest-icdiff" />
+            <item index="77" class="java.lang.String" itemvalue="psycopg2-binary" />
+            <item index="78" class="java.lang.String" itemvalue="requests" />
+            <item index="79" class="java.lang.String" itemvalue="flask" />
+            <item index="80" class="java.lang.String" itemvalue="sqlalchemy" />
           </list>
         </value>
       </option>

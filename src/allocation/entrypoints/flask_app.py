@@ -11,6 +11,7 @@ orm.start_mappers()
 
 @app.route("/add_batch", methods=['POST'])
 def add_batch():
+    print("Add batch called")
     eta = request.json['eta']
     if eta is not None:
         eta = datetime.fromisoformat(eta).date()
