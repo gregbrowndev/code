@@ -17,11 +17,18 @@ order_lines = Table(
     Column('orderid', String(255)),
 )
 
+products = Table(
+    'products', metadata,
+    Column('id', Integer, primary_key=True, autoincrement=True),
+    Column('sku', String(255)),
+)
+
 batches = Table(
     'batches', metadata,
     Column('id', Integer, primary_key=True, autoincrement=True),
+    Column('product_id', Integer, ForeignKey('products.id')),
     Column('reference', String(255)),
-    Column('sku', String(255)),
+    Column('sku', String(255)),  # Note - should likely remove this as its a transient dependency of Product
     Column('_purchased_quantity', Integer, nullable=False),
     Column('eta', Date, nullable=True),
 )
@@ -36,10 +43,19 @@ allocations = Table(
 
 def start_mappers():
     lines_mapper = mapper(model.OrderLine, order_lines)
-    mapper(model.Batch, batches, properties={
+
+    batches_mapper = mapper(model.Batch, batches, properties={
         '_allocations': relationship(
             lines_mapper,
             secondary=allocations,
             collection_class=set,
+        )
+    })
+
+    mapper(model.Product, products, properties={
+        'batches': relationship(
+            batches_mapper,
+            secondary=batches,
+            collection_class=list,
         )
     })
